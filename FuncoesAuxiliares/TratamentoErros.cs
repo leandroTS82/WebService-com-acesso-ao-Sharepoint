@@ -18,11 +18,6 @@ namespace FuncoesAuxiliares
             erro.AppOrObjeto = ex.Source;
             erro.Detalhes = ex.StackTrace;
             return erro;
-        }
-
-        public static ErroModel RegistraObjetoErro(ErroModel registroErro)
-        {
-            throw new NotImplementedException();
-        }
+        }      
     }
 }
