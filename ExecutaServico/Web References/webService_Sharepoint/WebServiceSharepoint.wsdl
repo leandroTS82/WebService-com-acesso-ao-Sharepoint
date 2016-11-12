@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ObtemLista">
+        <s:complexType />
+      </s:element>
+      <s:element name="ObtemListaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtemListaResult" type="tns:RetornoListaModel" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="RetornoListaModel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Itens" type="tns:ArrayOfItensListaModel" />
+          <s:element minOccurs="0" maxOccurs="1" name="Erros" type="tns:ArrayOfErroModel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfItensListaModel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ItensListaModel" nillable="true" type="tns:ItensListaModel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ItensListaModel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ID_Pessoa" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nome_Pessoa" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfErroModel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ErroModel" nillable="true" type="tns:ErroModel" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ErroModel">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AppOrObjeto" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Detalhes" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mensagem" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ObtemListaSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtemLista" />
+  </wsdl:message>
+  <wsdl:message name="ObtemListaSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtemListaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WebServiceSharepointSoap">
+    <wsdl:operation name="ObtemLista">
+      <wsdl:input message="tns:ObtemListaSoapIn" />
+      <wsdl:output message="tns:ObtemListaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WebServiceSharepointSoap" type="tns:WebServiceSharepointSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtemLista">
+      <soap:operation soapAction="http://tempuri.org/ObtemLista" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WebServiceSharepointSoap12" type="tns:WebServiceSharepointSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtemLista">
+      <soap12:operation soapAction="http://tempuri.org/ObtemLista" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WebServiceSharepoint">
+    <wsdl:port name="WebServiceSharepointSoap" binding="tns:WebServiceSharepointSoap">
+      <soap:address location="http://localhost:26453/WebServiceSharepoint.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WebServiceSharepointSoap12" binding="tns:WebServiceSharepointSoap12">
+      <soap12:address location="http://localhost:26453/WebServiceSharepoint.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
