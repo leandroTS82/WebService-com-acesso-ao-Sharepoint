@@ -95,6 +95,12 @@
   <ItemGroup>
     <None Include="Web References\webService_Sharepoint\WebServiceSharepoint.disco" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataSharePoint\3 -ServicoDados_Sharepoint.csproj">
+      <Project>{928170b0-1aee-41a7-a405-50529c98c3aa}</Project>
+      <Name>3 -ServicoDados_Sharepoint</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
