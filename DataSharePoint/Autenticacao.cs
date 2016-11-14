@@ -28,5 +28,36 @@ namespace DataSharePoint
             }
 
         }
+        
+        private ClientContext AutenticaAcessoSP2010(string url, string user, string password, out ErroModel registroErro)
+        {
+            ClientContext clientContext = new ClientContext(url);
+            registroErro = null;
+            try
+            {
+                NetworkCredential credencial = new NetworkCredential(user, password, url);
+                clientContext.Credentials = credencial;
+                Web web = clientContext.Web;
+                clientContext.Load(web);
+                clientContext.Load(web, website => website.Title);
+                clientContext.Load(web.Webs);
+
+                CredentialCache cc = new CredentialCache();
+                cc.Add(new Uri(url), "NTLM", CredentialCache.DefaultNetworkCredentials);
+                clientContext.Credentials = cc;
+                clientContext.AuthenticationMode = ClientAuthenticationMode.Default;
+
+                clientContext.ExecuteQuery();
+            }
+            catch (Exception ex)
+            {
+                registroErro.Mensagem = $"Ocorreu um erro ao configurar as credenciais. {ex.Message}";
+                registroErro.Detalhes = ex.StackTrace;
+                registroErro.AppOrObjeto = ex.Source;
+                return clientContex;
+            }
+
+            return clientContext;
+        }
     }
 }
